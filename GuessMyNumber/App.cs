@@ -9,44 +9,53 @@ namespace GuessMyNumber
 
         public void Run()
         {
-            var list = new int[]{1, 2, 3, 4, 5, 6, 7, 8 , 9, 10};
-            string message = BisectList(3,list);
+            var list = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            string message = BisectList(3,list, list.Length / 2);
             Console.WriteLine(message);
             Console.WriteLine($"It took {_counter} iterations to complete the task.");
             _counter = 0;
         }
 
-        private string BisectList(int number, int[] list)
+        private string BisectList(int numberToBeFound, int[] listForSearching, int pivotIndex)
         {
             _counter++;
 
-            if (list == null)
+            if (listForSearching == null)
             {
                 return "VALUE NOT FOUND";
             }
 
-            var middleOfList = list.Length / 2;
-            var middleOfListValue = list[middleOfList];
+            var middleOfList = listForSearching.Length / 2;
+            var middleOfListNumber = listForSearching[middleOfList];
 
-            if (middleOfListValue == number)
+            if (middleOfListNumber == numberToBeFound)
             {
-                return $"Your number is {middleOfListValue}!";
+                return $"Your number is {middleOfListNumber}!";
             }
-            if (middleOfListValue > number)
+            if (middleOfListNumber > numberToBeFound)
             {
-                Console.WriteLine($"{_counter}: {number} is less than {middleOfListValue}");
-                int range = list.GetUpperBound(0) - list[middleOfList];
+                Console.WriteLine($"{_counter}: {numberToBeFound} is less than {middleOfListNumber}");
+                int range = listForSearching.GetUpperBound(0) - middleOfList;
                 var newList = new int[range];
                 for (int i = 0; i < range; i++)
                 {
-                    newList[i] = list[middleOfList + i];
+                    newList[i] = listForSearching[middleOfList + i];
                 }
-                return BisectList(number, newList);
+                return BisectList(numberToBeFound, newList);
             }
-            if (middleOfListValue < number)
+            if (middleOfListNumber < numberToBeFound)
             {
-                Console.WriteLine($"{_counter}: {number} is greater than {middleOfListValue}");
+                Console.WriteLine($"{_counter}: {numberToBeFound} is greater than {middleOfListNumber}");
+                int range = 0 + middleOfList;
+                var newList = new int[range];
+                for (int i = 0; i < range; i++)
+                {
+                    newList[i] = listForSearching[i];
+                }
+                return BisectList(numberToBeFound, newList);
             }
+
+            return "VALUE NOT FOUND";
         }
     }
 }
