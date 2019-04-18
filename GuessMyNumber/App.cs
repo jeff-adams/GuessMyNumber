@@ -10,13 +10,13 @@ namespace GuessMyNumber
         public void Run()
         {
             var list = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-            string message = BisectList(3,list, list.Length / 2);
+            string message = BisectList(3,list, 0, list.Length - 1);
             Console.WriteLine(message);
             Console.WriteLine($"It took {_counter} iterations to complete the task.");
             _counter = 0;
         }
 
-        private string BisectList(int numberToBeFound, int[] listForSearching, int pivotIndex)
+        private string BisectList(int numberToBeFound, int[] listForSearching, int min, int max)
         {
             _counter++;
 
