@@ -20,42 +20,28 @@ namespace GuessMyNumber
         {
             _counter++;
 
-            if (listForSearching == null)
+            if (min > max)
             {
-                return "VALUE NOT FOUND";
+                return "Number was not found";
             }
 
-            var middleOfList = listForSearching.Length / 2;
+            var middleOfList = (min + max) / 2;
             var middleOfListNumber = listForSearching[middleOfList];
 
             if (middleOfListNumber == numberToBeFound)
             {
                 return $"Your number is {middleOfListNumber}!";
             }
-            if (middleOfListNumber > numberToBeFound)
+            else if (middleOfListNumber > numberToBeFound)
             {
                 Console.WriteLine($"{_counter}: {numberToBeFound} is less than {middleOfListNumber}");
-                int range = listForSearching.GetUpperBound(0) - middleOfList;
-                var newList = new int[range];
-                for (int i = 0; i < range; i++)
-                {
-                    newList[i] = listForSearching[middleOfList + i];
-                }
-                return BisectList(numberToBeFound, newList);
+                return BisectList(numberToBeFound, listForSearching, min, middleOfList - 1);
             }
-            if (middleOfListNumber < numberToBeFound)
+            else
             {
                 Console.WriteLine($"{_counter}: {numberToBeFound} is greater than {middleOfListNumber}");
-                int range = 0 + middleOfList;
-                var newList = new int[range];
-                for (int i = 0; i < range; i++)
-                {
-                    newList[i] = listForSearching[i];
-                }
-                return BisectList(numberToBeFound, newList);
+                return BisectList(numberToBeFound, listForSearching, middleOfList + 1, max);
             }
-
-            return "VALUE NOT FOUND";
         }
     }
 }
