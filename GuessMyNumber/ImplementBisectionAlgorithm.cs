@@ -3,22 +3,38 @@ using System.Collections.Generic;
 
 namespace GuessMyNumber
 {
-    class App
+    class ImplementBisectionAlgorithm
     {
-        private int _counter = 0;
+        private int counter = 0;
+        private int numberToBeFound;
 
         public void Run()
         {
             var list = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-            string message = BisectList(3,list, 0, list.Length - 1);
+
+            AskForInput();
+
+            string message = BisectList(numberToBeFound,list, 0, list.Length - 1);
             Console.WriteLine(message);
-            Console.WriteLine($"It took {_counter} iterations to complete the task.");
-            _counter = 0;
+            Console.WriteLine($"It took {counter} iterations to complete the task.");
+            counter = 0;
+        }
+
+        private void AskForInput()
+        {
+            Console.Clear();
+            Console.Write("Please enter a number from 1 - 10: ");
+            numberToBeFound = int.TryParse(Console.ReadLine(), out int result) ? result : 0;
+
+            if (numberToBeFound < 1 || numberToBeFound > 10)
+            {
+                AskForInput();
+            }
         }
 
         private string BisectList(int numberToBeFound, int[] listForSearching, int min, int max)
         {
-            _counter++;
+            counter++;
 
             if (min > max)
             {
@@ -34,12 +50,12 @@ namespace GuessMyNumber
             }
             else if (middleOfListNumber > numberToBeFound)
             {
-                Console.WriteLine($"{_counter}: {numberToBeFound} is less than {middleOfListNumber}");
+                Console.WriteLine($"{counter}: {numberToBeFound} is less than {middleOfListNumber}");
                 return BisectList(numberToBeFound, listForSearching, min, middleOfList - 1);
             }
             else
             {
-                Console.WriteLine($"{_counter}: {numberToBeFound} is greater than {middleOfListNumber}");
+                Console.WriteLine($"{counter}: {numberToBeFound} is greater than {middleOfListNumber}");
                 return BisectList(numberToBeFound, listForSearching, middleOfList + 1, max);
             }
         }

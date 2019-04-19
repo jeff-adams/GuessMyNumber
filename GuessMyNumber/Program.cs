@@ -6,7 +6,13 @@ namespace GuessMyNumber
     {
         static void Main(string[] args)
         {
-            new App().Run();
+            new ImplementBisectionAlgorithm().Run();
+            new HumanPlays().Run();
+            new ComputerPlays().Run();
+
+            Console.ReadKey();
+
+            Environment.Exit(0);
         }
     }
 }
