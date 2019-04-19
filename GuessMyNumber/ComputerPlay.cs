@@ -77,15 +77,5 @@ namespace GuessMyNumber
                     break;
             }
         }
-
-        private int BisectList(int min, int max)
-        {
-            if(min > max)
-            {
-                return -1;
-            }
-            var middleOfList = (min + max) / 2;
-            return numbers[middleOfList];
-        }
     }
 }
